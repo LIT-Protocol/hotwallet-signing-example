@@ -1,0 +1,14 @@
+{
+  "name": "HotwalletSigner",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "test": "node sign.js"
+  },
+  "dependencies": {
+    "@metamask/eth-sig-util": "^4.0.0",
+    "uint8arrays": "^3.0.0"
+  }
+}
