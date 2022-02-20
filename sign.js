@@ -1,6 +1,5 @@
 import { fromString as uint8arrayFromString } from "uint8arrays/from-string";
-import { toString as uint8arrayToString } from "uint8arrays/to-string";
-import { personalSign, recoverPersonalSignature } from "@metamask/eth-sig-util";
+import ethers from "ethers";
 
 const AUTH_SIGNATURE_BODY =
   "I am creating an account to use Lit Protocol at {{timestamp}}";
@@ -11,22 +10,13 @@ const privKeyBuffer = uint8arrayFromString(privKey, "base16");
 
 const now = new Date().toISOString();
 const messageToSign = AUTH_SIGNATURE_BODY.replace("{{timestamp}}", now);
-const messageToSignBytes = uint8arrayToString(
-  uint8arrayFromString(messageToSign, "utf8"),
-  "base16"
-);
 
-const signature = personalSign({
-  data: messageToSignBytes,
-  privateKey: privKeyBuffer,
-});
+const wallet = new ethers.Wallet(privKeyBuffer);
+const signature = await wallet.signMessage(messageToSign);
 
 console.log("signature", signature);
 
-const recoveredAddress = recoverPersonalSignature({
-  data: messageToSignBytes,
-  signature,
-});
+const recoveredAddress = ethers.utils.verifyMessage(messageToSign, signature);
 
 const authSig = {
   sig: signature,
