@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "ethers": "^5.5.4",
+    "siwe": "^1.1.6",
     "uint8arrays": "^3.0.0"
   }
 }
