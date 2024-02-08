@@ -52,7 +52,7 @@ const authSig = {
   sig: signature,
   derivedVia: "web3.eth.personal.sign",
   signedMessage: messageToSign,
-  address: await wallet.getAddress(),
+  address: recoveredAddress,
 };
 
 console.log("authSig", authSig);
